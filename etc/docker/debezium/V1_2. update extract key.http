@@ -1,0 +1,30 @@
+### Update connector
+PUT http://localhost:8083/connectors/demo-connector1/config
+Content-Type: application/json
+
+{
+  "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+  "plugin.name": "pgoutput",
+  "snapshot.mode": "no_data",
+  "slot.name": "debezium1",
+
+  "database.hostname": "postgres",
+  "database.port": "5432",
+  "database.user": "demo-debezium",
+  "database.password": "demo-debezium",
+  "database.dbname" : "demo-debezium",
+  "database.server.name": "postgres",
+  "table.include.list": "custom.sport",
+
+  "topic.prefix": "pgsql.demo",
+
+  "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+  "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+  "key.converter.schemas.enable": "false",
+  "value.converter.schemas.enable": "false",
+
+  "transforms": "extractKeyField",
+
+  "transforms.extractKeyField.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+  "transforms.extractKeyField.field": "id"
+}

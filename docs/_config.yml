@@ -1,0 +1,6 @@
+title: Debezium
+description: "Применение Debezium для обработки потоковых данных. Основные концепции."
+show_downloads: true
+remote_theme: pages-themes/architect@v0.2.0 # depending on the selected theme
+plugins:
+  - jekyll-remote-theme

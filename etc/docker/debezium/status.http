@@ -1,0 +1,23 @@
+### Get connectors
+GET http://localhost:8083/connectors
+
+### Get connector's config
+GET http://localhost:8083/connectors/demo-connector
+
+### Get connectors status
+GET http://localhost:8083/connectors/?expand=status
+
+### Delete connector
+DELETE http://localhost:8083/connectors/demo-connector
+
+### Restart connector
+POST http://localhost:8083/connectors/demo-connector4/restart
+
+### Restart task
+POST http://localhost:8083/connectors/demo-connector4/tasks/0/restart
+
+### Pause connector
+PUT http://localhost:8083/connectors/demo-connector4/pause
+
+### Resume connector
+PUT http://localhost:8083/connectors/demo-connector4/resume
