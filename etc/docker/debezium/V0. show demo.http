@@ -1,0 +1,39 @@
+### Create connector
+POST http://localhost:8083/connectors
+Content-Type: application/json
+
+{
+  "name": "demo-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "plugin.name": "pgoutput",
+
+    "snapshot.mode": "no_data",
+    "slot.name": "debezium",
+
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "demo-debezium",
+    "database.password": "demo-debezium",
+    "database.dbname" : "demo-debezium",
+    "database.server.name": "postgres",
+    "table.include.list": "marketing.user",
+
+    "topic.prefix": "pgsql.demo",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter.schemas.enable": "false",
+
+    "tombstones.on.delete": "false",
+
+    "transforms": "extractKeyField,extractValueField",
+
+    "transforms.extractKeyField.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+    "transforms.extractKeyField.field": "id",
+
+    "transforms.extractValueField.type": "org.apache.kafka.connect.transforms.ExtractField$Value",
+    "transforms.extractValueField.field": "after"
+  }
+}

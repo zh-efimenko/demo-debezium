@@ -1,0 +1,41 @@
+### Create connector
+POST http://localhost:8083/connectors
+Content-Type: application/json
+
+{
+  "name": "demo-connector3",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "plugin.name": "pgoutput",
+
+    "snapshot.mode": "initial",
+    "slot.name": "debezium3",
+
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "demo-debezium",
+    "database.password": "demo-debezium",
+    "database.dbname" : "demo-debezium",
+    "database.server.name": "postgres",
+    "table.include.list": "custom.sport,custom.category",
+
+    "topic.prefix": "pgsql.demo",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter.schemas.enable": "false",
+
+    "tombstones.on.delete": "false",
+
+    "transforms": "extractKeyField",
+
+    "transforms.extractKeyField.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+    "transforms.extractKeyField.field": "id",
+    "transforms.extractKeyField.predicate": "isCategoryTable",
+    "transforms.extractKeyField.negate": "true",
+    "predicates": "isCategoryTable",
+    "predicates.isCategoryTable.type": "org.apache.kafka.connect.transforms.predicates.TopicNameMatches",
+    "predicates.isCategoryTable.pattern": "pgsql.demo.custom.category"
+  }
+}
