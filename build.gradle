@@ -1,8 +1,10 @@
 // Эти dependencies нужны для org.flywaydb.flyway plugin
 buildscript {
     dependencies {
-        classpath "org.postgresql:postgresql:42.6.0"
-        classpath "org.flywaydb:flyway-database-postgresql:$flyway_database_version"
+//        classpath "org.postgresql:postgresql:42.6.0"
+//        classpath "org.flywaydb:flyway-database-postgresql:$flyway_database_version"
+        classpath "com.mysql:mysql-connector-j:9.0.0"
+        classpath "org.flywaydb:flyway-mysql:$flyway_database_version"
     }
 }
 

@@ -1,6 +1,6 @@
-create table if not exists marketing.user
+create table users
 (
-    id         bigserial primary key,
+    id         bigint primary key,
     first_name varchar(255) not null,
     last_name  varchar(255) not null,
     income     bigint       not null default 100,
@@ -8,30 +8,30 @@ create table if not exists marketing.user
     updated_at timestamp    not null default now()
 );
 
-insert into marketing.user (first_name, last_name)
-values ('Zhenya', 'Yefimenka'),
-       ('Nikolay', 'Ivanov');
+insert into users (id, first_name, last_name)
+values (1, 'Zhenya', 'Yefimenka'),
+       (2, 'Nikolay', 'Ivanov');
 
-create table if not exists custom.sport
+create table sport
 (
-    id     bigserial primary key,
+    id     bigint primary key,
     code   varchar(255) not null unique,
     status varchar(30)  not null
 );
 
-create table if not exists custom.category
+create table category
 (
     id       bigint       not null,
-    sport_id bigint       not null references custom.sport (id),
+    sport_id bigint       not null references sport (id),
     code     varchar(255) not null unique,
     status   varchar(30)  not null,
     PRIMARY KEY (id, sport_id)
 );
 
-insert into custom.sport (id, code, status)
+insert into sport (id, code, status)
 values (1, 'FOOTBALL', 'OPENED'),
        (2, 'BASKETBALL', 'OPENED');
 
-insert into custom.category (id, sport_id, code, status)
+insert into category (id, sport_id, code, status)
 values (1, 1, 'RU', 'OPENED'),
        (2, 1, 'EN', 'OPENED');

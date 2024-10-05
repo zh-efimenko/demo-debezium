@@ -1,0 +1,43 @@
+### Create connector
+POST http://localhost:8083/connectors
+Content-Type: application/json
+
+{
+  "name": "mysql-demo",
+  "config": {
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "slot.name": "mysql-demo",
+    "snapshot.mode": "never",
+
+    "database.dbname": "demo-debezium",
+    "database.hostname": "mysql",
+    "database.server.id": "241009",
+    "database.server.name": "mysql_demo",
+    "database.port": "3306",
+    "database.user": "demo-debezium",
+    "database.password": "demo-debezium",
+    "database.include.list": "demo-debezium",
+    "database.connectionTimeZone": "Europe/Berlin",
+    "table.include.list": "demo-debezium.dbz_signal,demo-debezium.users,demo-debezium.sport,demo-debezium.category",
+
+    "topic.prefix": "mysql.demo",
+
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter.schemas.enable": "false",
+
+    "schema.history.internal.kafka.bootstrap.servers": "kafka:29092",
+    "schema.history.internal.kafka.topic": "mysql.demo.kafka.schemahistory",
+    "include.schema.changes": "false",
+
+    "decimal.handling.mode": "string",
+    "time.precision.mode": "connect",
+    "tombstones.on.delete": "false",
+
+    "signal.enabled.channels": "source,kafka",
+    "signal.data.collection": "demo-debezium.dbz_signal",
+    "signal.kafka.bootstrap.servers": "kafka:29092",
+    "signal.kafka.topic": "mysql.demo.kafka.signal"
+  }
+}

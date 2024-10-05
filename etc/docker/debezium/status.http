@@ -1,6 +1,9 @@
 ### Get connectors
 GET http://localhost:8083/connectors
 
+### Get versions
+GET http://localhost:8083/connector-plugins
+
 ### Get connector's config
 GET http://localhost:8083/connectors/demo-connector
 

@@ -4,6 +4,9 @@ topics=(
   pgsql.demo.marketing.user
   pgsql.demo.custom.sport
   pgsql.demo.custom.category
+  mysql.demo.demo-debezium.users
+  mysql.demo.demo-debezium.sport
+  mysql.demo.demo-debezium.category
 )
 
 for topic in "${topics[@]}"; do
