@@ -1,6 +1,20 @@
 name: demo-debezium
 
 services:
+  db_mysql:
+    image: mysql:9.0
+    hostname: mysql
+    container_name: demo_debezium_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: demo-debezium
+      MYSQL_DATABASE: demo-debezium
+      MYSQL_USER: demo-debezium
+      MYSQL_PASSWORD: demo-debezium
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./etc/docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
   db:
     image: postgres:14.2
     hostname: postgres
