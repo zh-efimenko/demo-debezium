@@ -76,11 +76,15 @@ services:
       - ./etc/docker/kafka/config.yml:/etc/kafkaui/dynamic_config.yaml
 
   debezium:
-    image: debezium/connect:2.6.2.Final
+    build:
+      context: ./etc/docker/debezium-jmx-exporter
+      args:
+        JMX_AGENT_VERSION: 0.15.0
     container_name: demo_debezium_debezium
     restart: unless-stopped
     ports:
       - "8083:8083"
+      - "1976:1976"
     depends_on:
       kafka:
         condition: service_healthy
@@ -92,8 +96,33 @@ services:
       - CONFIG_STORAGE_TOPIC=debezium_connect_configs
       - OFFSET_STORAGE_TOPIC=debezium_connect_offsets
       - STATUS_STORAGE_TOPIC=debezium_connect_statuses
+      - KAFKA_OPTS=-javaagent:/kafka/etc/jmx_prometheus_javaagent.jar=8080:/kafka/etc/config.yml
+      - JMXHOST=localhost
+      - JMXPORT=1976
     healthcheck:
       test: [ "CMD-SHELL", "curl -sSf http://localhost:8083/connectors || exit 1" ]
       interval: 10s
       timeout: 5s
       retries: 10
+
+  prometheus:
+    image: prom/prometheus:v2.43.0
+    container_name: demo_debezium_prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    depends_on:
+      debezium:
+        condition: service_healthy
+    volumes:
+      - ./etc/docker/debezium-prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    build:
+      context: ./etc/docker/debezium-grafana
+    container_name: demo_debezium_grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - DS_PROMETHEUS=prometheus
