@@ -24,7 +24,7 @@ See [V1_1__init.sql](https://github.com/zh-efimenko/demo-debezium/blob/main/src/
 
 Отправим следующий запрос:
 
-See [V1_1. create 1.http](https://github.com/zh-efimenko/demo-debezium/blob/main/etc/docker/debezium/V1_1.%20create%201.http)
+See [V2_1. create snapshot.http](https://github.com/zh-efimenko/demo-debezium/blob/main/etc/docker/debezium/V2_1.%20create%20snapshot.http)
 
 ### Результат
 
@@ -68,9 +68,15 @@ Debezium предоставляет нам широкий спектр свой�
 
 **ValueToKey** - Замена ключа записи новым ключом, сформированным из подмножества полей значения записи
 
-See [V1_2. update 1.http](https://github.com/zh-efimenko/demo-debezium/blob/main/etc/docker/debezium/V1_2.%20update%201.http)
+```text
+  "transforms": "extractKeyField,extractValueField",
 
-See [V1_3. update 2.http](https://github.com/zh-efimenko/demo-debezium/blob/main/etc/docker/debezium/V1_3.%20update%202.http)
+  "transforms.extractKeyField.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+  "transforms.extractKeyField.field": "id",
+
+  "transforms.extractValueField.type": "org.apache.kafka.connect.transforms.ExtractField$Value",
+  "transforms.extractValueField.field": "after"
+```
 
 ## Incremental snapshots
 
@@ -111,7 +117,7 @@ See [compose.yml](https://github.com/zh-efimenko/demo-debezium/blob/main/compose
 
 See [V1_1__init.sql](https://github.com/zh-efimenko/demo-debezium/blob/main/src/main/resources/db/migration/V1_1__init.sql)
 
-See [_V1_4__add_dbz_signal.sql](https://github.com/zh-efimenko/demo-debezium/blob/main/src/main/resources/db/migration/_V1_4__add_dbz_signal.sql)
+See [_V1_3__add_dbz_signal.sql](https://github.com/zh-efimenko/demo-debezium/blob/main/src/main/resources/db/migration/_V1_3__add_dbz_signal.sql)
 
 See [V3_1. create 4.http](https://github.com/zh-efimenko/demo-debezium/blob/main/etc/docker/debezium/V3_1.%20create%204.http)
 

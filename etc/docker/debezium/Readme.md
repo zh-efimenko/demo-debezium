@@ -102,3 +102,57 @@ key: pgsql.demo
 	}
 }
 ```
+
+### Логи Debezium
+
+```txt
+CREATE PUBLICATION dbz_publication FOR ALL TABLES;
+
+CREATE_REPLICATION_SLOT "debezium"  LOGICAL pgoutput 
+
+Snapshot ended with SnapshotResult [status=SKIPPED, offset=null]  
+
+REPLICA IDENTITY for 'marketing.user' is 'DEFAULT'; UPDATE and DELETE events will contain previous values only for PK columns
+
+Initializing PgOutput logical decoder publication
+
+Obtained valid replication slot ReplicationSlot [active=false, latestFlushedLsn=LSN{0/1741AD0}, catalogXmin=740]  
+```
+
+```txt
+CREATE_REPLICATION_SLOT "debezium2"  LOGICAL pgoutput
+
+Snapshot step 1 - Preparing  
+Opening transaction with statement SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
+
+Snapshot step 2 - Determining captured tables 
+Adding table custom.category to the list of capture schema tables 
+Adding table public.flyway_schema_history to the list of capture schema tables
+Adding table custom.sport to the list of capture schema tables 
+Adding table marketing.user to the list of capture schema tables 
+
+Snapshot step 3 - Locking captured tables [custom.sport] 
+
+Snapshot step 4 - Determining snapshot offset 
+Read xlogStart at 'LSN{0/17421E8}' from transaction '745'
+
+Snapshot step 5 - Reading structure of captured tables
+Reading structure of schema 'custom' of catalog 'demo-debezium'  
+
+Snapshot step 6 - Persisting schema history 
+
+Snapshot step 7 - Snapshotting data
+
+For table 'custom.sport' using select statement: 'SELECT "id", "code", "status" FROM "custom"."sport"'  
+
+Exporting data from table 'custom.sport' (1 of 1 tables)  
+Finished exporting 2 records for table 'custom.sport' (1 of 1 tables); total duration '00:00:00.008' 
+
+Snapshot - Final stage 
+
+REPLICA IDENTITY for 'custom.sport' is 'DEFAULT'; UPDATE and DELETE events will contain previous values only for PK columns
+ 
+Initializing PgOutput logical decoder publication
+
+Obtained valid replication slot ReplicationSlot [active=false, latestFlushedLsn=LSN{0/1741AD0}, catalogXmin=740]  
+```
