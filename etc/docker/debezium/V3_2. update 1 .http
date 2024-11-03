@@ -40,7 +40,7 @@ Content-Type: application/json
   "publication.name": "debezium_demo",
 
   "signal.enabled.channels": "source,kafka",
-  "signal.kafka.bootstrap.servers": "kafka:29092",
   "signal.data.collection": "public.dbz_signal",
+  "signal.kafka.bootstrap.servers": "kafka:29092",
   "signal.kafka.topic": "pgsql.demo.kafka.signal"
 }
