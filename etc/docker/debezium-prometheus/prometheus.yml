@@ -7,8 +7,8 @@ global:
   # scrape_timeout is set to the global default (10s).
 
 scrape_configs:
-  - job_name: 'debezium jmx'
+  - job_name: 'kafka-connect jmx'
     metrics_path: '/'
     scrape_interval: 5s
     static_configs:
-      - targets: [ 'debezium:8080' ]
+      - targets: [ 'kafka-connect:8080' ]

@@ -75,12 +75,12 @@ services:
     volumes:
       - ./etc/docker/kafka/config.yml:/etc/kafkaui/dynamic_config.yaml
 
-  debezium:
+  kafka-connect:
     build:
       context: ./etc/docker/debezium-jmx-exporter
       args:
         JMX_AGENT_VERSION: 0.15.0
-    container_name: demo_debezium_debezium
+    container_name: demo_debezium_connect
     restart: unless-stopped
     ports:
       - "8083:8083"
@@ -93,9 +93,9 @@ services:
     environment:
       - BOOTSTRAP_SERVERS=kafka:29092
       - GROUP_ID=1
-      - CONFIG_STORAGE_TOPIC=debezium_connect_configs
-      - OFFSET_STORAGE_TOPIC=debezium_connect_offsets
-      - STATUS_STORAGE_TOPIC=debezium_connect_statuses
+      - CONFIG_STORAGE_TOPIC=kafka_connect_configs
+      - OFFSET_STORAGE_TOPIC=kafka_connect_offsets
+      - STATUS_STORAGE_TOPIC=kafka_connect_statuses
       - KAFKA_OPTS=-javaagent:/kafka/etc/jmx_prometheus_javaagent.jar=8080:/kafka/etc/config.yml
       - JMXHOST=localhost
       - JMXPORT=1976
@@ -112,7 +112,7 @@ services:
     ports:
       - "9090:9090"
     depends_on:
-      debezium:
+      kafka-connect:
         condition: service_healthy
     volumes:
       - ./etc/docker/debezium-prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
