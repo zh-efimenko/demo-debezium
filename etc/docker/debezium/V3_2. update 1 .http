@@ -15,7 +15,7 @@ Content-Type: application/json
   "database.password": "demo-debezium",
   "database.dbname" : "demo-debezium",
   "database.server.name": "postgres",
-  "table.include.list": "public.dbz_signal,custom.sport,custom.category",
+  "table.include.list": "public.dbz_signal,public.dbz_heartbeat,custom.sport,custom.category",
 
   "topic.prefix": "pgsql.demo",
 
@@ -42,5 +42,8 @@ Content-Type: application/json
   "signal.enabled.channels": "source,kafka",
   "signal.data.collection": "public.dbz_signal",
   "signal.kafka.bootstrap.servers": "kafka:29092",
-  "signal.kafka.topic": "pgsql.demo.kafka.signal"
+  "signal.kafka.topic": "pgsql.demo.kafka.signal",
+
+  "heartbeat.interval.ms": "10000",
+  "heartbeat.action.query": "INSERT INTO public.dbz_heartbeat (id, ts) VALUES (1, NOW()) ON CONFLICT(id) DO UPDATE SET ts=EXCLUDED.ts;"
 }
