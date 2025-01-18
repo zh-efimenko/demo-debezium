@@ -7,6 +7,6 @@ create table if not exists public.dbz_signal
 
 create table if not exists public.dbz_heartbeat
 (
-    id serial primary key,
+    id bigserial primary key,
     ts timestamp default current_timestamp
 );

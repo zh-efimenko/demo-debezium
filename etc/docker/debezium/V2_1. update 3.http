@@ -30,9 +30,8 @@ Content-Type: application/json
 
   "transforms.extractKeyField.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
   "transforms.extractKeyField.field": "id",
-  "transforms.extractKeyField.predicate": "isCategoryTable",
-  "transforms.extractKeyField.negate": "true",
-  "predicates": "isCategoryTable",
-  "predicates.isCategoryTable.type": "org.apache.kafka.connect.transforms.predicates.TopicNameMatches",
-  "predicates.isCategoryTable.pattern": "pgsql.demo.custom.category"
+  "transforms.extractKeyField.predicate": "isSportTable",
+  "predicates": "isSportTable",
+  "predicates.isSportTable.type": "org.apache.kafka.connect.transforms.predicates.TopicNameMatches",
+  "predicates.isSportTable.pattern": "pgsql.demo.custom.sport"
 }
