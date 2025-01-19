@@ -1,0 +1,12 @@
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%highlight(%d{yyyy-MM-dd HH:mm:ss} %-5level %msg%n)</pattern>
+        </encoder>
+    </appender>
+
+    <root level="error">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+    <logger name="io.github.zhefimenko.debezium.demo" level="info"/>
+</configuration>

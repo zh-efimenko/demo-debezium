@@ -130,16 +130,19 @@ val KAFKA_STREAM_BUILDER = StreamsBuilder()
             Consumed.with(DebeziumMessage.DEBEZIUM_CATEGORY_KEY_SERDE, DebeziumMessage.DEBEZIUM_CATEGORY_SERDE)
         )
             .leftJoin(sportTable, keyValueMapper, valueJoiner)
-            .foreach { key, value -> System.err.println("$key: $value") }
+            .foreach { _, value -> log.info { "$value" } }
     }
 
 /**
  * 4) START
  */
 fun main() {
+    log.info { "Initialization is starting..." }
+
     val streams = KafkaStreams(KAFKA_STREAM_BUILDER.build(), PROPERTIES)
     streams.start()
 
+    log.info { "Initialization has finished." }
     // Add shutdown hook to stop the Kafka Streams threads.
     // You can optionally provide a timeout to `close`.
     Runtime.getRuntime().addShutdownHook(Thread(streams::close))
