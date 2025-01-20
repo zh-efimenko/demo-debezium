@@ -117,7 +117,7 @@ See [compose.yml](https://github.com/zh-efimenko/demo-debezium/blob/main/compose
 
 See [V1_1__init.sql](https://github.com/zh-efimenko/demo-debezium/blob/main/src/main/resources/db/migration/V1_1__init.sql)
 
-See [_V1_3__add_dbz_signal.sql](https://github.com/zh-efimenko/demo-debezium/blob/main/src/main/resources/db/migration/_V1_3__add_dbz_signal.sql)
+See [_V1_3__add_dbz.sql](https://github.com/zh-efimenko/demo-debezium/blob/main/src/main/resources/db/migration/_V1_3__add_dbz.sql)
 
 See [V3_1. create 4.http](https://github.com/zh-efimenko/demo-debezium/blob/main/etc/docker/debezium/V3_1.%20create%204.http)
 
