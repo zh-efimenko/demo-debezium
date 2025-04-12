@@ -2,7 +2,7 @@ name: demo-debezium
 
 services:
   db:
-    image: postgres:14.2
+    image: postgres:15.10
     hostname: postgres
     container_name: demo_debezium_postgres
     restart: unless-stopped
